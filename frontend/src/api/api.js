@@ -14,9 +14,10 @@ export async function fetchPickups(zoneId, days = 14) {
 
 export async function searchAddress(query) {
   const mockAddresses = {
-    '123 main st': 1,
-    '456 elm st': 2,
-    '789 oak ave': 3,
+    '123 lafia north': 1,
+    '456 shabu': 2,
+    '789 city centre': 3,
+    '10 kwandare': 4,
   };
   const zoneId = mockAddresses[query.toLowerCase()];
   if (zoneId) return { zoneId };

@@ -51,7 +51,7 @@ const PickupRequestForm = ({ onSubmissionSuccess }) => {
             onChange={handleInputChange}
             required
             className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none"
-            placeholder="John Doe"
+            placeholder="Enter Your Name"
           />
         </div>
 
@@ -68,7 +68,7 @@ const PickupRequestForm = ({ onSubmissionSuccess }) => {
               onChange={handleInputChange}
               required
               className="w-full p-2 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none"
-              placeholder="123 Green Street"
+              placeholder="Enter Pickup Address"
             />
           </div>
         </div>
