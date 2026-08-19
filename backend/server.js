@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-const { seedDatabase } = require('./db/seed');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -23,16 +22,11 @@ app.use('/api/requests', requestsRouter);
 
 // Health check
 app.get('/', (req, res) => {
-  res.json({ message: 'Waste Pickup Scheduler API is running' });
+  res.json({ 
+    message: 'Waste Pickup Scheduler API is running',
+    timestamp: new Date().toISOString()
+  });
 });
-
-// Seed database on startup (if empty)
-try {
-  seedDatabase();
-  console.log('✅ Database ready');
-} catch (error) {
-  console.error('❌ Database seeding error:', error.message);
-}
 
 app.listen(PORT, () => {
   console.log(`✅ Backend running on port ${PORT}`);

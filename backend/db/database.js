@@ -2,20 +2,19 @@ const Database = require('better-sqlite3');
 const path = require('path');
 const fs = require('fs');
 
-// Use /tmp for Render (writable without persistent disk)
-// Use local db folder for development
-const dbPath = process.env.NODE_ENV === 'production' 
-  ? '/tmp/database.sqlite'
-  : path.join(__dirname, 'database.sqlite');
+// Railway provides /app/data as a persistent volume
+// Use it if available, otherwise fallback to local db folder
+const dbPath = process.env.DB_PATH || path.join(__dirname, 'database.sqlite');
 
 // Ensure the directory exists
 const dbDir = path.dirname(dbPath);
 if (!fs.existsSync(dbDir)) {
   fs.mkdirSync(dbDir, { recursive: true });
+  console.log(`Created database directory: ${dbDir}`);
 }
 
 const db = new Database(dbPath);
-console.log(`Database opened at: ${dbPath}`);
+console.log(`✅ Database opened at: ${dbPath}`);
 
 // Enable WAL mode
 db.pragma('journal_mode = WAL');
