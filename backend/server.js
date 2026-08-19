@@ -1,13 +1,14 @@
 const express = require('express');
 const cors = require('cors');
+const { seedDatabase } = require('./db/seed');
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
-  origin:process.env.FRONTEND_URL || '*',
-  credentials:true
+  origin: process.env.FRONTEND_URL || '*',
+  credentials: true
 }));
 app.use(express.json());
 
@@ -16,10 +17,23 @@ const zonesRouter = require('./routes/zones');
 const pickupsRouter = require('./routes/pickups');
 const requestsRouter = require('./routes/requests');
 
-app.use('/api/requests', requestsRouter);
 app.use('/api/zones', zonesRouter);
 app.use('/api/pickups', pickupsRouter);
+app.use('/api/requests', requestsRouter);
+
+// Health check
+app.get('/', (req, res) => {
+  res.json({ message: 'Waste Pickup Scheduler API is running' });
+});
+
+// Seed database on startup (if empty)
+try {
+  seedDatabase();
+  console.log('✅ Database ready');
+} catch (error) {
+  console.error('❌ Database seeding error:', error.message);
+}
 
 app.listen(PORT, () => {
-  console.log(`Backend running on http://localhost:${PORT}`);
+  console.log(`✅ Backend running on port ${PORT}`);
 });

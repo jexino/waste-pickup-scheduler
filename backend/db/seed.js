@@ -1,23 +1,31 @@
 const db = require('./database');
 
-// Clear existing data
-db.exec('DELETE FROM schedules');
-db.exec('DELETE FROM zones');
-db.exec('DELETE FROM holidays');
+function seedDatabase() {
+  console.log('🌱 Checking if database needs seeding...');
 
-// Insert zones
-const insertZone = db.prepare('INSERT INTO zones (name) VALUES (?)');
-insertZone.run('Lafia North - Tudun Amba');
-insertZone.run('Shabu- Assakio ');
-insertZone.run('City Centre - Town Core ');
-insertZone.run('Kwandare- Danka ');
+  // Check if zones table is empty
+  const zoneCount = db.prepare('SELECT COUNT(*) as count FROM zones').get();
 
-// Insert schedules
-const insertSchedule = db.prepare(
-  'INSERT INTO schedules (zone_id, day_of_week, waste_type, frequency, start_date) VALUES (?, ?, ?, ?, ?)'
-);
+  if (zoneCount.count > 0) {
+    console.log('✅ Database already seeded');
+    return;
+  }
 
-// lafia North
+  console.log('🌱 Seeding database...');
+
+  // Insert zones
+  const insertZone = db.prepare('INSERT INTO zones (name) VALUES (?)');
+  insertZone.run('Lafia North - Tudun Amba');
+  insertZone.run('Shabu- Assakio ');
+  insertZone.run('City Centre - Town Core ');
+  insertZone.run('Kwandare- Danka ');
+
+  // Insert schedules
+  const insertSchedule = db.prepare(
+    'INSERT INTO schedules (zone_id, day_of_week, waste_type, frequency, start_date) VALUES (?, ?, ?, ?, ?)'
+  );
+
+  // lafia North
 insertSchedule.run(1, 'Monday', 'trash', 'weekly', null);
 insertSchedule.run(1, 'Wednesday', 'recycling', 'weekly', null);
 
@@ -32,9 +40,22 @@ insertSchedule.run(3, 'Monday', 'trash', 'weekly', null);
 // kwandare
 insertSchedule.run(4, 'Thursday', 'trash', 'weekly', null);
 insertSchedule.run(4, 'Saturday', 'recycling', 'weekly', null);
+  // lafia North
+insertSchedule.run(1, 'Monday', 'trash', 'weekly', null);
+insertSchedule.run(1, 'Wednesday', 'recycling', 'weekly', null);
 
-// Insert a holiday
-db.prepare('INSERT INTO holidays (date) VALUES (?)').run('2026-12-25');
-insertHoliday.run('2026-10-01');  // Nigeria Independence Day
+  // Insert holidays
+  const insertHoliday = db.prepare('INSERT INTO holidays (date) VALUES (?)');
+  insertHoliday.run('2026-12-25');
+  insertHoliday.run('2027-01-01');
+  console.log('✅ Holidays added');
+}
 
-console.log('Database seeded successfully.');
+// Run seeding if this file is executed directly
+if (require.main === module) {
+  seedDatabase();
+  db.close();
+}
+
+// Export for use in server.js
+module.exports = { seedDatabase };
