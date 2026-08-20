@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { fetchRequests } from "../api/api";
-import ScheduleList from "../components/ScheduleList"; // the component you provided
+import ScheduleList from "../components/ScheduleList"; 
 import { FaArrowLeft } from "react-icons/fa";
 
 export default function RequestsPage() {

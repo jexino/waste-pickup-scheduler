@@ -32,12 +32,14 @@ export default function AddressSearch({ onZoneFound }) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Enter your street address..."
-            className="flex-1 min-w-0 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="flex-1 min-w-0 px-4 py-2 border border-gray-300 rounded-lg 
+                       focus:outline-none focus:ring-2 focus:ring-green-500"
           />
           <button
             type="submit"
             disabled={loading}
-            className="flex-shrink-0 px-3 sm:px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 
+            className="flex-shrink-0 px-3 sm:px-4 py-2 bg-green-600 text-white rounded-lg 
+                      hover:bg-green-700 disabled:opacity-50 
                       transition flex items-center gap-1"
           >
             <FaSearch size={14} />
