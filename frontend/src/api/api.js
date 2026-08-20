@@ -1,4 +1,4 @@
-const BASE_URL = import.meta.env.VITE_API_URL || '/api';
+const BASE_URL = 'https://waste-pickup-scheduler-hgkn.onrender.com';
 
 export async function fetchZones() {
   const res = await fetch(`${BASE_URL}/zones`);
