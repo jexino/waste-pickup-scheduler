@@ -33,7 +33,9 @@ export default function SchedulePage() {
           <Link to="/" className="text-white hover:text-green-200">
             <FaArrowLeft size={20} />
           </Link>
-          <h1 className="text-2xl font-semibold">{zoneName} Pickup Schedule</h1>
+          <h1 className="text-sm md:text-xl lg:text-2xl text-center font-semibold">
+            {zoneName} Pickup Schedule
+          </h1>
         </div>
       </header>
 
@@ -80,9 +82,10 @@ export default function SchedulePage() {
         )}
       </main>
 
-      <footer className="text-center py-6 text-gray-400 text-sm">
-        Waste Pickup Scheduler – Built by <span 
-        className="font-semibold text-gray-600">Zakari Samu</span> for 3MTT
+      <footer className="text-center py-6 text-gray-400 text-sm md:text-xl">
+        Waste Pickup Scheduler – Built by{" "}
+        <span className="font-semibold text-gray-600">Zakari Samu</span> for
+        3MTT
       </footer>
     </div>
   );
