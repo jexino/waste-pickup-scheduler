@@ -1,15 +1,15 @@
-import { useState } from 'react';
-import { searchAddress } from '../api/api';
-import { FaSearch } from 'react-icons/fa';
+import { useState } from "react";
+import { searchAddress } from "../api/api";
+import { FaSearch } from "react-icons/fa";
 
 export default function AddressSearch({ onZoneFound }) {
-  const [query, setQuery] = useState('');
-  const [error, setError] = useState('');
+  const [query, setQuery] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
     if (!query.trim()) return;
     setLoading(true);
     try {
@@ -17,7 +17,9 @@ export default function AddressSearch({ onZoneFound }) {
       onZoneFound(result.zoneId);
     } catch (err) {
       console.error(err);
-      setError('Address not found. Try "123 Lafia North", "456 Shabu-Assakio", "789 City Centre", or "10 Kwandare-danka"');
+      setError(
+        'Address not found. Try "123 Lafia North", "456 Shabu-Assakio", "789 City Centre", or "10 Kwandare-danka"',
+      );
     } finally {
       setLoading(false);
     }
@@ -43,15 +45,15 @@ export default function AddressSearch({ onZoneFound }) {
                       transition flex items-center gap-1"
           >
             <FaSearch size={14} />
-              <span className="hidden sm:inline">{loading ? '...' : 'Search'}</span>
+            <span className="hidden sm:inline">
+              {loading ? "..." : "Search"}
+            </span>
           </button>
         </div>
       </form>
-      {error && (
-        <p className="text-red-500 text-sm mt-2">{error}</p>
-      )}
+      {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
       <p className="text-xs text-gray-400 mt-2">
-        Try: 123 Lafia north, 456 Shabu, 789 City centre, or 10 kwandare
+        Try: 123 Lafia north, 456 Shabu, or 789 City centre
       </p>
     </div>
   );
