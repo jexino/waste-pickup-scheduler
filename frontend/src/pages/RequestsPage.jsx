@@ -35,6 +35,10 @@ export default function RequestsPage() {
         )}
         <ScheduleList schedule={requests} loading={loading} />
       </main>
+      <footer className="text-center py-6 text-gray-400 text-sm">
+  Waste Pickup Scheduler – Built by <span 
+  className="font-semibold text-gray-600">Zakari Samu</span> for 3MTT
+</footer>
     </div>
   );
 }

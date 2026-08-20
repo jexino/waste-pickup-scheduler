@@ -80,8 +80,9 @@ export default function SchedulePage() {
         )}
       </main>
 
-      <footer className="text-center py-4 text-gray-500 text-sm">
-        &copy; 2026 Zakari Samu - Waste Pickup Scheduler – 3MTT Project
+      <footer className="text-center py-6 text-gray-400 text-sm">
+        Waste Pickup Scheduler – Built by <span 
+        className="font-semibold text-gray-600">Zakari Samu</span> for 3MTT
       </footer>
     </div>
   );
