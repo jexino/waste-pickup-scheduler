@@ -28,21 +28,21 @@ export default function AddressSearch({ onZoneFound }) {
   return (
     <div>
       <form onSubmit={handleSubmit} className="w-full max-w-md mx-auto">
-        <div className="flex gap-2">
+        <div className="flex flex-col gap-2 sm:flex-row sm:gap-2">
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Enter your street address..."
-            className="flex-1 min-w-0 px-4 py-2 border border-gray-300 rounded-lg 
-                       focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg 
+                      focus:outline-none focus:ring-2 focus:ring-green-500"
           />
           <button
             type="submit"
             disabled={loading}
-            className="flex-shrink-0 px-3 sm:px-4 py-2 bg-green-600 text-white rounded-lg 
+            className="w-full sm:w-auto flex-shrink-0 px-4 py-2 bg-green-600 text-white rounded-lg 
                       hover:bg-green-700 disabled:opacity-50 
-                      transition flex items-center gap-1"
+                      transition flex items-center justify-center gap-1"
           >
             <FaSearch size={14} />
             <span className="hidden sm:inline">

@@ -1,42 +1,44 @@
 import { useState } from "react";
 import { FiAlertCircle, FiMapPin, FiCheckCircle } from 'react-icons/fi';
+import { createRequest } from "../api/api";
 
 const PickupRequestForm = ({ onSubmissionSuccess }) => {
   const [formData, setFormData] = useState({ name: "", address: "", date: "" });
   const [statusMessage, setStatusMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    fetch("/api/requests", {
-      // <-- changed to relative URL
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+    setIsSubmitting(true);
+    try {
+      await createRequest({
         name: formData.name,
         address: formData.address,
         pickup_date: formData.date,
-      }),
-    })
-      .then((res) => res.json())
-      .then(() => {
-        setStatusMessage("Pickup requested successfully!");
-        setFormData({ name: "", address: "", date: "" });
-        if (onSubmissionSuccess) onSubmissionSuccess();
-        setTimeout(() => setStatusMessage(""), 3000);
-      })
-      .catch((err) => console.error("Failed to submit request", err));
+      });
+      setStatusMessage('Pickup requested successfully!');
+      setFormData({ name: '', address: '', date: '' });
+      if (onSubmissionSuccess) onSubmissionSuccess();
+      setTimeout(() => setStatusMessage(''), 3000);
+    } catch (err) {
+      console.error('Failed to submit request:', err);
+      setStatusMessage('Failed to submit request. Please try again.');
+      setTimeout(() => setStatusMessage(''), 5000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <section className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
       <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
         <FiAlertCircle className="text-emerald-500" />
-        Request a Pickup
+        Request a Special Pickup
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -89,9 +91,10 @@ const PickupRequestForm = ({ onSubmissionSuccess }) => {
 
         <button
           type="submit"
+          disabled={isSubmitting}
           className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200"
         >
-          Schedule Pickup
+          {isSubmitting ? 'Scheduling...' : 'Schedule Pickup'}
         </button>
       </form>
 
